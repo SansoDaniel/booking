@@ -52,7 +52,7 @@ await Firebase.initializeApp(
 
 ```dart
 import 'package:firebase_core/firebase_core.dart';
-import 'package:project_architecture/core/manager/firebase_manager.dart';
+import 'package:booking_app/core/manager/firebase_manager.dart';
 import 'firebase_options.dart';
 
 void main() async {

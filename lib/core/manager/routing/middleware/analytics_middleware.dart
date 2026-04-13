@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
-import 'package:project_architecture/core/manager/routing/middleware/navigation_middleware.dart';
+import 'package:booking_app/core/manager/routing/middleware/navigation_middleware.dart';
 
 /// Analytics middleware
 ///

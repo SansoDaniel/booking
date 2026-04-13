@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
-import 'package:project_architecture/core/manager/environment/environment_manager.dart';
+import 'package:booking_app/core/manager/environment/environment_manager.dart';
 
 /// Interceptor for returning mock responses from JSON files
 ///

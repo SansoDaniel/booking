@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:project_architecture/riverpod/login/providers/login_state.dart';
+import 'package:booking_app/riverpod/login/providers/login_state.dart';
 
 class LoginNotifier extends StateNotifier<LoginState> {
   LoginNotifier() : super(LoginState());

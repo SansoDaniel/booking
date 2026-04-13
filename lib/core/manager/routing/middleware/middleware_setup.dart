@@ -1,9 +1,9 @@
-import 'package:project_architecture/core/manager/routing/middleware/analytics_middleware.dart';
-import 'package:project_architecture/core/manager/routing/middleware/auth_middleware.dart';
-import 'package:project_architecture/core/manager/routing/middleware/logging_middleware.dart';
-import 'package:project_architecture/core/manager/routing/middleware/middleware_manager.dart';
-import 'package:project_architecture/core/manager/storage/storage_manager.dart';
-import 'package:project_architecture/injection_container.dart' show sl;
+import 'package:booking_app/core/manager/routing/middleware/analytics_middleware.dart';
+import 'package:booking_app/core/manager/routing/middleware/auth_middleware.dart';
+import 'package:booking_app/core/manager/routing/middleware/logging_middleware.dart';
+import 'package:booking_app/core/manager/routing/middleware/middleware_manager.dart';
+import 'package:booking_app/core/manager/storage/storage_manager.dart';
+import 'package:booking_app/injection_container.dart' show sl;
 
 /// Setup and register all navigation middleware
 ///
@@ -20,18 +20,18 @@ void setupNavigationMiddleware() {
   // 3. AnalyticsMiddleware (priority: 90) - Track analytics last
 
   // 1. Authentication Middleware
-  middlewareManager.register(
-    AuthMiddleware(
-      storage: sl<StorageManager>(),
-      loginRoute: '/login',
-      publicRoutes: [
-        '/login',
-        '/splash',
-        '/register',
-        '/forgot-password',
-      ],
-    ),
-  );
+  // middlewareManager.register(
+  //   AuthMiddleware(
+  //     storage: sl<StorageManager>(),
+  //     loginRoute: '/login',
+  //     publicRoutes: [
+  //       '/login',
+  //       '/splash',
+  //       '/register',
+  //       '/forgot-password',
+  //     ],
+  //   ),
+  // );
 
   // 2. Logging Middleware (only in debug mode, managed internally)
   middlewareManager.register(

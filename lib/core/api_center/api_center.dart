@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:project_architecture/core/api_center/interceptor/error_interceptor.dart';
-import 'package:project_architecture/core/api_center/interceptor/loader_interceptor.dart';
-import 'package:project_architecture/core/api_center/interceptor/mock_interceptor.dart';
-import 'package:project_architecture/core/api_center/interceptor/token_interceptor.dart';
-import 'package:project_architecture/core/manager/environment/environment_manager.dart';
+import 'package:booking_app/core/api_center/interceptor/error_interceptor.dart';
+import 'package:booking_app/core/api_center/interceptor/loader_interceptor.dart';
+import 'package:booking_app/core/api_center/interceptor/mock_interceptor.dart';
+import 'package:booking_app/core/api_center/interceptor/token_interceptor.dart';
+import 'package:booking_app/core/manager/environment/environment_manager.dart';
 
 enum ApiConstantKey {
   showLoaderKey('showLoader');

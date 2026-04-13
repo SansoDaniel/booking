@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_architecture/core/manager/routing/route_manager.dart';
+import 'package:booking_app/core/manager/routing/route_manager.dart';
 
 /// Manager for showing/hiding loading indicators
 ///

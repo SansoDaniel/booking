@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart' as material;
-import 'package:project_architecture/core/manager/routing/route_manager.dart';
+import 'package:booking_app/core/manager/routing/route_manager.dart';
 
 /// Modal state representation
 class ModalState {

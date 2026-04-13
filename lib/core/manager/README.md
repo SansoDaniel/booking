@@ -35,7 +35,7 @@ manager/
 
 ```dart
 // Importa tutti i manager
-import 'package:project_architecture/core/manager/manager.dart';
+import 'package:booking_app/core/manager/manager.dart';
 
 // Usa i manager
 final firebaseManager = FirebaseManager();
@@ -47,19 +47,19 @@ final apiUrl = EnvironmentManager.apiUrl;
 
 ```dart
 // Solo Firebase
-import 'package:project_architecture/core/manager/firebase/firebase.dart';
+import 'package:booking_app/core/manager/firebase/firebase.dart';
 
 // Solo UI managers
-import 'package:project_architecture/core/manager/ui/ui.dart';
+import 'package:booking_app/core/manager/ui/ui.dart';
 
 // Solo Environment
-import 'package:project_architecture/core/manager/environment/environment.dart';
+import 'package:booking_app/core/manager/environment/environment.dart';
 
 // Solo Routing
-import 'package:project_architecture/core/manager/routing/routing.dart';
+import 'package:booking_app/core/manager/routing/routing.dart';
 
 // Solo Storage
-import 'package:project_architecture/core/manager/storage/storage.dart';
+import 'package:booking_app/core/manager/storage/storage.dart';
 ```
 
 ## 📚 Manager Disponibili
@@ -631,7 +631,7 @@ sl.registerLazySingleton<StorageManager>(() => StorageManager());
 
 **Utilizzo con GetIt**:
 ```dart
-import 'package:project_architecture/injection_container.dart';
+import 'package:booking_app/injection_container.dart';
 
 // Get instance
 final firebaseManager = sl<FirebaseManager>();
@@ -691,7 +691,7 @@ final firebaseManager = ref.watch(firebaseManagerProvider);
 final manager = FirebaseManager();
 
 // Import from manager.dart
-import 'package:project_architecture/core/manager/manager.dart';
+import 'package:booking_app/core/manager/manager.dart';
 
 // Handle errors
 try {
@@ -716,7 +716,7 @@ void dispose() {
 final manager = new FirebaseManager(); // ❌
 
 // Don't import from deep paths when manager.dart exists
-import 'package:project_architecture/core/manager/ui/loading_manager.dart'; // ❌
+import 'package:booking_app/core/manager/ui/loading_manager.dart'; // ❌
 
 // Don't forget to hide loading on errors
 try {
@@ -736,7 +736,7 @@ print('Error'); // ❌ Use proper logging
 
 ```dart
 // 1. Import manager
-import 'package:project_architecture/core/manager/manager.dart';
+import 'package:booking_app/core/manager/manager.dart';
 
 // 2. Initialize Firebase (opzionale)
 await FirebaseManager().initialize();

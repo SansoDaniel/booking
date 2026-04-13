@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:project_architecture/core/api_center/api_error.dart';
+import 'package:booking_app/core/api_center/api_error.dart';
 
 /// Interceptor for handling and transforming API errors
 ///

@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:project_architecture/core/accessibility/focus_registry.dart';
-import 'package:project_architecture/core/api_center/api_center.dart';
-import 'package:project_architecture/core/manager/manager.dart';
-import 'package:project_architecture/dI_setup.dart';
-import 'package:project_architecture/injection_container.dart';
+import 'package:booking_app/core/accessibility/focus_registry.dart';
+import 'package:booking_app/core/api_center/api_center.dart';
+import 'package:booking_app/core/manager/manager.dart';
+import 'package:booking_app/dI_setup.dart';
+import 'package:booking_app/injection_container.dart';
 
 void main() {
   group('DI Setup', () {

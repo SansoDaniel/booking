@@ -1,15 +1,15 @@
 import 'dart:async';
 
+import 'package:booking_app/core/manager/environment/environment_manager.dart';
+import 'package:booking_app/core/manager/routing/middleware/middleware_setup.dart';
+import 'package:booking_app/core/manager/routing/route_manager.dart'
+    show router;
+import 'package:booking_app/core/manager/storage/storage.dart';
+import 'package:booking_app/dI_setup.dart';
+import 'package:booking_app/injection_container.dart' as ic;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:project_architecture/core/manager/environment/environment_manager.dart';
-import 'package:project_architecture/core/manager/routing/middleware/middleware_setup.dart';
-import 'package:project_architecture/core/manager/routing/route_manager.dart'
-    show router;
-import 'package:project_architecture/core/manager/storage/storage.dart';
-import 'package:project_architecture/dI_setup.dart';
-import 'package:project_architecture/injection_container.dart' as ic;
 import 'package:toastification/toastification.dart';
 
 void main() async {
@@ -76,6 +76,7 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
     return ProviderScope(
@@ -84,6 +85,9 @@ class MyApp extends StatelessWidget {
         child: MaterialApp.router(
           title: 'Flutter Demo',
           routerConfig: router,
+          theme: ThemeData.from(
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+          ),
           debugShowCheckedModeBanner: false,
         ),
       ),

@@ -1,4 +1,4 @@
-import 'package:project_architecture/core/manager/firebase/firebase_manager.dart';
+import 'package:booking_app/core/manager/firebase/firebase_manager.dart';
 
 /// Examples of how to use FirebaseManager
 ///

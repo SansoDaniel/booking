@@ -1,7 +1,7 @@
-import 'package:project_architecture/core/accessibility/focus_registry.dart';
-import 'package:project_architecture/core/api_center/api_center.dart';
-import 'package:project_architecture/core/manager/manager.dart';
-import 'package:project_architecture/injection_container.dart' show sl;
+import 'package:booking_app/core/accessibility/focus_registry.dart';
+import 'package:booking_app/core/api_center/api_center.dart';
+import 'package:booking_app/core/manager/manager.dart';
+import 'package:booking_app/injection_container.dart' show sl;
 
 ///Here add all the dependencyInjection
 ///

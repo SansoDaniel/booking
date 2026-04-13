@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
-import 'package:project_architecture/core/manager/routing/middleware/middleware_manager.dart';
-import 'package:project_architecture/routes/routes.dart';
+import 'package:booking_app/core/manager/routing/middleware/middleware_manager.dart';
+import 'package:booking_app/routes/routes.dart';
 
 final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
 
@@ -22,9 +22,9 @@ final GoRouter router = GoRouter(
     }
 
     // Default redirect for root
-    // if (state.matchedLocation == '/') {
-    //   return SplashViewRoute().location;
-    // }
+    if (state.matchedLocation == '/') {
+      return DashboardViewRoute().location;
+    }
 
     return null;
   },

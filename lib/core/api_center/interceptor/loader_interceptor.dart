@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:project_architecture/core/manager/ui/loading_manager.dart';
+import 'package:booking_app/core/manager/ui/loading_manager.dart';
 
 /// Interceptor that manages loading indicators for API requests
 ///
