@@ -1,8 +1,6 @@
 import 'package:booking_app/routes/routes.dart';
-import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:localization/localization.dart';
 
 class AppShell extends StatelessWidget {
   const AppShell({
@@ -35,9 +33,12 @@ class AppShell extends StatelessWidget {
             label: 'Dashboard',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.home_rounded),
-            label: 'Dashboard',
+            icon: Icon(Icons.location_pin),
+            label: 'Explore',
           ),
+          BottomNavigationBarItem(icon: Icon(Icons.star), label: 'Favorite'),
+          BottomNavigationBarItem(icon: Icon(Icons.chat), label: 'Chat'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
         ],
         currentIndex: navigationShell.currentIndex,
         onTap: (value) => _onTap(context, value),

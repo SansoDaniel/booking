@@ -12,7 +12,7 @@ class _DashboardViewState extends State<DashboardView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.grey[50],
       extendBody: true,
       extendBodyBehindAppBar: true,
       body: SafeArea(
@@ -24,9 +24,17 @@ class _DashboardViewState extends State<DashboardView> {
             children: [
               Header(),
               CustomSearchBar(),
-              SectionHeader(sectionTitle: 'Popular'),
+              SectionHeader(
+                sectionTitle: 'Recommended Hotel',
+                btnText: 'See all',
+                rightBtnTap: () {},
+              ),
               PopularHotel(),
-              SectionHeader(sectionTitle: 'Nearest'),
+              SectionHeader(
+                sectionTitle: 'Nearby Hotel',
+                btnText: 'See all',
+                rightBtnTap: () {},
+              ),
               NearestHotel(),
             ],
           ),
@@ -37,18 +45,48 @@ class _DashboardViewState extends State<DashboardView> {
 }
 
 class SectionHeader extends StatelessWidget {
-  const SectionHeader({required this.sectionTitle, super.key});
+  const SectionHeader({
+    required this.sectionTitle,
+    super.key,
+    this.btnText,
+    this.rightBtnTap,
+  });
 
   final String sectionTitle;
+  final String? btnText;
+  final VoidCallback? rightBtnTap;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: AppSpacing.xl),
-      child: Text(
-        sectionTitle,
-        style: AppTextStyles.h6.copyWith(fontWeight: .bold),
+    final leftText = Text(
+      sectionTitle,
+      style: AppTextStyles.h6.copyWith(
+        fontWeight: .bold,
+        fontSize: AppTypography.fontSize.l,
       ),
+    );
+
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: AppSpacing.m),
+      child: rightBtnTap == null
+          ? leftText
+          : Row(
+              mainAxisAlignment: .spaceBetween,
+              crossAxisAlignment: .end,
+              children: [
+                Expanded(child: leftText),
+                GestureDetector(
+                  onTap: rightBtnTap,
+                  child: Text(
+                    btnText ?? '',
+                    style: AppTextStyles.body.copyWith(
+                      color: Colors.blue,
+                      fontWeight: .w600,
+                    ),
+                  ),
+                ),
+              ],
+            ),
     );
   }
 }
@@ -66,26 +104,36 @@ class Header extends StatelessWidget {
         children: [
           Column(
             crossAxisAlignment: .start,
-            spacing: AppSpacing.s,
+            mainAxisAlignment: .center,
             children: [
               Text(
-                'Walcome Buddy',
-                style: AppTextStyles.h6.copyWith(
-                  color: Colors.blue,
+                'Location',
+                style: AppTextStyles.caption.copyWith(
+                  color: Colors.grey,
                   fontWeight: .bold,
+                  fontSize: AppTypography.fontSize.m,
                 ),
               ),
-              Text(
-                'Start search your hotel!',
-                style: AppTextStyles.body.copyWith(color: Colors.blue),
+              Row(
+                children: [
+                  Icon(Icons.location_pin, color: Colors.blue),
+                  Text(
+                    'New York, USA',
+                    style: AppTextStyles.body.copyWith(fontWeight: .bold),
+                  ),
+                ],
               ),
             ],
           ),
-          CircleAvatar(
-            radius: 24,
-            foregroundImage: Image.network(
-              'https://picsum.photos/id/237/200/300',
-            ).image,
+          IconButton.filled(
+            onPressed: () {},
+            icon: Badge(child: Icon(Icons.notifications)),
+            color: Colors.black,
+            style: ButtonStyle(
+              backgroundColor: .resolveWith((states) {
+                return Colors.grey[300];
+              }),
+            ),
           ),
         ],
       ),
@@ -106,7 +154,8 @@ class CustomSearchBar extends StatelessWidget {
           child: TextField(
             style: AppTextStyles.body,
             decoration: InputDecoration(
-              fillColor: Color(0xFFDBDBDB),
+              prefixIcon: Icon(Icons.search, color: Colors.blue),
+              fillColor: Colors.grey.shade200,
               filled: true,
               visualDensity: .comfortable,
               hintText: 'Search hotel...',
@@ -118,15 +167,16 @@ class CustomSearchBar extends StatelessWidget {
             ),
           ),
         ),
-        InkWell(
-          child: Container(
-            width: 48,
-            height: 48,
-            decoration: BoxDecoration(
-              color: Colors.blue,
-              borderRadius: BorderRadius.circular(4),
+        ConstrainedBox(
+          constraints: BoxConstraints(minWidth: 48, minHeight: 48),
+          child: Material(
+            color: Colors.blue,
+            borderRadius: BorderRadius.circular(4),
+            clipBehavior: .hardEdge,
+            child: InkWell(
+              onTap: () {},
+              child: Icon(Icons.settings_rounded, color: Colors.white),
             ),
-            child: Icon(Icons.settings_rounded, color: Colors.white),
           ),
         ),
       ],
@@ -139,9 +189,19 @@ class PopularHotel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-      spacing: AppSpacing.m,
-      children: [PopularHotelCard(), PopularHotelCard()],
+    return ConstrainedBox(
+      constraints: BoxConstraints(maxHeight: 310),
+      child: ListView.builder(
+        scrollDirection: .horizontal,
+        shrinkWrap: true,
+        itemCount: 3,
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: EdgeInsets.only(right: AppSpacing.m, bottom: AppSpacing.m),
+            child: PopularHotelCard(),
+          );
+        },
+      ),
     );
   }
 }
@@ -151,83 +211,96 @@ class PopularHotelCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      constraints: BoxConstraints(
-        minHeight: 250,
-        minWidth: context.screenWidth / 2 - AppSpacing.m * 1.5,
-        maxWidth: context.screenWidth / 2 - AppSpacing.m * 1.5,
-      ),
-      decoration: BoxDecoration(
+    return ConstrainedBox(
+      constraints: BoxConstraints(minHeight: 250, minWidth: 220, maxWidth: 220),
+      child: Material(
+        clipBehavior: .hardEdge,
+        borderRadius: BorderRadius.circular(8),
+        elevation: 1,
         color: Colors.white,
-        borderRadius: BorderRadius.circular(4),
-        boxShadow: [
-          BoxShadow(
-            offset: Offset(1, 1),
-            blurRadius: 3,
-            blurStyle: .outer,
-            color: Colors.grey,
-          ),
-        ],
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(AppSpacing.s),
-        child: Column(
-          crossAxisAlignment: .start,
-          spacing: AppSpacing.m,
-          children: [
-            Container(
-              constraints: BoxConstraints(
-                maxHeight: 150,
-                minWidth:
-                    (context.screenWidth / 2 - AppSpacing.m * 1.5) -
-                    AppSpacing.s,
-              ),
-              clipBehavior: .hardEdge,
-              decoration: BoxDecoration(
-                color: Colors.green,
-                borderRadius: BorderRadius.circular(2),
-                image: DecorationImage(
-                  fit: .fill,
-                  image: Image.network(
-                    'https://picsum.photos/seed/picsum/200/300',
-                  ).image,
-                ),
-              ),
-              child: Align(
-                alignment: .topRight,
-                child: Container(
-                  width: 55,
-                  height: 25,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(8),
+          onTap: () {},
+          child: Padding(
+            padding: const EdgeInsets.all(AppSpacing.s),
+            child: Column(
+              crossAxisAlignment: .start,
+              spacing: AppSpacing.xs,
+              children: [
+                Container(
+                  constraints: BoxConstraints(
+                    maxHeight: 150,
+                    minWidth:
+                        (context.screenWidth / 2 - AppSpacing.m * 1.5) -
+                        AppSpacing.s,
+                  ),
+                  clipBehavior: .hardEdge,
                   decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(8),
+                    color: Colors.green,
+                    borderRadius: BorderRadius.circular(4),
+                    image: DecorationImage(
+                      fit: .fill,
+                      image: Image.network(
+                        'https://picsum.photos/seed/picsum/200/300',
+                      ).image,
                     ),
                   ),
-                  child: Row(
-                    mainAxisAlignment: .center,
-                    crossAxisAlignment: .center,
-                    spacing: AppSpacing.xs,
-                    children: [
-                      Icon(Icons.star, color: Colors.amber, size: 16),
-                      Text(
-                        '4.5',
+                ),
+                const SizedBox(height: AppSpacing.s),
+                Row(
+                  mainAxisAlignment: .center,
+                  crossAxisAlignment: .center,
+                  spacing: AppSpacing.xs,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                        vertical: AppSpacing.xxs,
+                        horizontal: AppSpacing.xs,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.blue.shade50,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Text(
+                        '10% Off',
                         style: AppTextStyles.caption.copyWith(
-                          fontWeight: .bold,
-                          color: Colors.amber,
+                          color: Colors.blue.shade500,
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                    Spacer(),
+                    Icon(Icons.star, color: Colors.amber, size: 16),
+                    Text(
+                      '4.5',
+                      style: AppTextStyles.caption.copyWith(fontWeight: .bold),
+                    ),
+                  ],
                 ),
-              ),
+                Text(
+                  'OasisOvertures',
+                  style: AppTextStyles.bodyLarge.copyWith(fontWeight: .bold),
+                ),
+                Row(
+                  children: [
+                    Icon(Icons.location_pin, color: Colors.grey),
+                    Text('New York, USA', style: AppTextStyles.caption),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Text(
+                      '\$650',
+                      style: AppTextStyles.body.copyWith(
+                        color: Colors.blue,
+                        fontWeight: .bold,
+                      ),
+                    ),
+                    Text('/night', style: AppTextStyles.caption),
+                  ],
+                ),
+              ],
             ),
-            Text(
-              'Ciletuh Modern Hotel',
-              style: AppTextStyles.bodyLarge.copyWith(fontWeight: .bold),
-            ),
-            Text('Geopark Ciletuh', style: AppTextStyles.caption),
-          ],
+          ),
         ),
       ),
     );
@@ -248,71 +321,96 @@ class NearestHotel extends StatelessWidget {
           margin: EdgeInsets.symmetric(vertical: AppSpacing.s),
           surfaceTintColor: Colors.white,
           color: Colors.white,
-          child: Padding(
-            padding: const EdgeInsets.all(AppSpacing.s),
-            child: Stack(
-              children: [
-                Row(
-                  spacing: AppSpacing.m,
-                  children: [
-                    Image.network(
-                      'https://picsum.photos/200',
-                      width: 64,
-                      frameBuilder:
-                          (context, child, frame, wasSynchronouslyLoaded) {
-                            return Container(
-                              clipBehavior: .hardEdge,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: child,
-                            );
-                          },
-                    ),
-                    Column(
+          clipBehavior: .hardEdge,
+          child: InkWell(
+            onTap: () {},
+            child: Padding(
+              padding: const EdgeInsets.all(AppSpacing.s),
+              child: Row(
+                spacing: AppSpacing.m,
+                children: [
+                  Image.network(
+                    'https://picsum.photos/200',
+                    height: 128,
+                    frameBuilder:
+                        (context, child, frame, wasSynchronouslyLoaded) {
+                          return Container(
+                            clipBehavior: .hardEdge,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: child,
+                          );
+                        },
+                  ),
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: .start,
                       crossAxisAlignment: .start,
+                      mainAxisSize: .min,
+                      spacing: AppSpacing.xs,
                       children: [
+                        Row(
+                          mainAxisAlignment: .center,
+                          crossAxisAlignment: .center,
+                          spacing: AppSpacing.xs,
+                          children: [
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                vertical: AppSpacing.xxs,
+                                horizontal: AppSpacing.xs,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.blue.shade50,
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: Text(
+                                '10% Off',
+                                style: AppTextStyles.caption.copyWith(
+                                  color: Colors.blue.shade500,
+                                ),
+                              ),
+                            ),
+                            Spacer(),
+                            Icon(Icons.star, color: Colors.amber, size: 16),
+                            Text(
+                              '4.5',
+                              style: AppTextStyles.caption.copyWith(
+                                fontWeight: .bold,
+                              ),
+                            ),
+                          ],
+                        ),
                         Text(
-                          'Ciletuh Modern Hotel',
+                          'GoldenValley',
                           style: TextStyle(
                             fontWeight: .bold,
                             fontSize: AppTypography.fontSize.xl,
                           ),
                         ),
-                        Text('Geopark Ciletuh', style: AppTextStyles.overline),
+                        Row(
+                          children: [
+                            Icon(Icons.location_pin, color: Colors.grey),
+                            Text('New York, USA', style: AppTextStyles.caption),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              '\$650',
+                              style: AppTextStyles.body.copyWith(
+                                color: Colors.blue,
+                                fontWeight: .bold,
+                              ),
+                            ),
+                            Text('/night', style: AppTextStyles.caption),
+                          ],
+                        ),
                       ],
                     ),
-                  ],
-                ),
-                Positioned(
-                  top: 0,
-                  right: 0,
-                  child: Row(
-                    spacing: AppSpacing.xs,
-                    children: [
-                      Icon(Icons.star, color: Colors.amber, size: 16),
-                      Text(
-                        '4.5',
-                        style: AppTextStyles.caption.copyWith(
-                          fontWeight: .bold,
-                          color: Colors.amber,
-                        ),
-                      ),
-                    ],
                   ),
-                ),
-                Positioned(
-                  bottom: 0,
-                  right: 0,
-                  child: Text(
-                    '\$150/Night',
-                    style: AppTextStyles.caption.copyWith(
-                      color: Colors.amber,
-                      fontWeight: .bold,
-                    ),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         );
